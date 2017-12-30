@@ -1,9 +1,10 @@
 [![GoDoc](https://godoc.org/github.com/christat/dsl?status.svg)](https://godoc.org/github.com/christat/dsl)
 [![Build Status](https://travis-ci.org/christat/dsl.svg?branch=master)](https://travis-ci.org/christat/dsl)
-# Data Structures Library
+# DSL (Data Structures Library)
 
-A (minimal) set of data structures for Go:
+A (minimal) set of data structures for Go.
 
+Implemented data structures:
 - List (singly-linked)
 - Stacks (slice and list implementations)
 - Queues (slice and list implementations)
@@ -20,7 +21,7 @@ go get github.com/christat/dsl
 
 ## Contributions
 
-Suggestions for new data structures and pull requests are welcome! Please open an issue for a request.
+Suggestions and pull requests are welcome! Please open an issue for new data structure requests.
 
 ## License
 
