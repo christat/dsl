@@ -1,8 +1,8 @@
 [![GoDoc](https://godoc.org/github.com/christat/dsl?status.svg)](https://godoc.org/github.com/christat/dsl)
 [![Build Status](https://travis-ci.org/christat/dsl.svg?branch=master)](https://travis-ci.org/christat/dsl)
-# DSL (Data Structures Library)
+# Gost - a Go (data) structures library
 
-A (minimal) set of data structures for Go.
+A minimal set of data structures for Go.
 
 Implemented data structures:
 - List (singly-linked)

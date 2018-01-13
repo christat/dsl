@@ -1,14 +1,14 @@
-package dsl_test
+package gost_test
 
 import (
 	"testing"
 
-	"github.com/christat/dsl/src"
+	"github.com/christat/gost/stack"
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateNodeStack(size int) *dsl.NodeStack {
-	stack := &dsl.NodeStack{}
+func generateNodeStack(size int) *gost.NodeStack {
+	stack := &gost.NodeStack{}
 	for i := 0; i < size; i++ {
 		stack.Push(newVector(i))
 	}
@@ -16,7 +16,7 @@ func generateNodeStack(size int) *dsl.NodeStack {
 }
 
 func TestNodeStack_Push(t *testing.T) {
-	stack := new(dsl.NodeStack)
+	stack := new(gost.NodeStack)
 	elem := newVector(0)
 	stack.Push(elem)
 	stack.Push(elem)
@@ -26,7 +26,7 @@ func TestNodeStack_Push(t *testing.T) {
 }
 
 func TestNodeStack_Pop(t *testing.T) {
-	stack := new(dsl.NodeStack)
+	stack := new(gost.NodeStack)
 	_, err := stack.Pop()
 	if err == nil {
 		t.Error("Pop() did not return error on empty stack")
@@ -50,7 +50,7 @@ func TestNodeStack_Pop(t *testing.T) {
 }
 
 func TestNodeStack_Peek(t *testing.T) {
-	stack := new(dsl.NodeStack)
+	stack := new(gost.NodeStack)
 	_, err := stack.Peek()
 	if err == nil {
 		t.Error("Peek() did not return error on empty stack")
@@ -76,14 +76,14 @@ The following methods are meant to put this implementation to the test against t
 */
 
 // benchmark helper function to add num items to the stack.
-func fillNodeStack(stack *dsl.NodeStack, num int) {
+func fillNodeStack(stack *gost.NodeStack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Push(newVector(i))
 	}
 }
 
 // benchmark helper function to remove num items from the stack.
-func emptyNodeStack(stack *dsl.NodeStack, num int) {
+func emptyNodeStack(stack *gost.NodeStack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Pop()
 	}
@@ -91,7 +91,7 @@ func emptyNodeStack(stack *dsl.NodeStack, num int) {
 
 func benchmarkNodeStackBasicTest(len int, b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		stack := new(dsl.NodeStack)
+		stack := new(gost.NodeStack)
 		fillNodeStack(stack, len)
 		emptyNodeStack(stack, len)
 	}

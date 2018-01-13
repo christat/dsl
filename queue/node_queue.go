@@ -1,7 +1,8 @@
-package dsl
+package gost
 
 import (
 	"errors"
+	"github.com/christat/gost/list"
 )
 
 /*
@@ -14,11 +15,11 @@ allows:
 
 Note that the implementation is NOT thread-safe.
 */
-type NodeQueue NodeList
+type NodeQueue gost.NodeList
 
 // Enqueue a new Node containing data (interface{}) to the tail of the queue.
 func (queue *NodeQueue) Enqueue(data interface{}) {
-	node := &Node{Data: data, Next: nil}
+	node := &gost.Node{Data: data, Next: nil}
 	if queue.Size > 1 {
 		queue.Tail.Next = node
 	} else if queue.Size == 0 {

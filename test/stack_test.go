@@ -1,14 +1,14 @@
-package dsl_test
+package gost_test
 
 import (
 	"testing"
 
-	"github.com/christat/dsl/src"
+	"github.com/christat/gost/stack"
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateStack(size int) *dsl.Stack {
-	stack := dsl.NewStack(10)
+func generateStack(size int) *gost.Stack {
+	stack := gost.NewStack(10)
 	for i := 0; i < size; i++ {
 		stack.Push(newVector(i))
 	}
@@ -23,7 +23,7 @@ func TestStack_Push(t *testing.T) {
 }
 
 func TestStack_Pop(t *testing.T) {
-	stack := dsl.NewStack(10)
+	stack := gost.NewStack(10)
 	stack = generateStack(num)
 	value, err := stack.Pop()
 	if err != nil {
@@ -46,7 +46,7 @@ func TestStack_Pop(t *testing.T) {
 }
 
 func TestStack_Peek(t *testing.T) {
-	stack := dsl.NewStack(10)
+	stack := gost.NewStack(10)
 	_, err := stack.Peek()
 	if err == nil {
 		t.Error("Peek() did not return error on empty stack")
@@ -71,14 +71,14 @@ The following methods are meant to put this implementation to the test against t
 */
 
 // benchmark helper function to add num items to the stack.
-func fillStack(stack *dsl.Stack, num int) {
+func fillStack(stack *gost.Stack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Push(newVector(i))
 	}
 }
 
 // benchmark helper function to remove num items from the stack.
-func emptyStack(stack *dsl.Stack, num int) {
+func emptyStack(stack *gost.Stack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Pop()
 	}
@@ -86,7 +86,7 @@ func emptyStack(stack *dsl.Stack, num int) {
 
 func benchmarkStackBasicTest(len int, b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		stack := dsl.NewStack(10)
+		stack := gost.NewStack(10)
 		fillStack(stack, len)
 		emptyStack(stack, len)
 	}

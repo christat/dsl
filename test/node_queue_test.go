@@ -1,14 +1,14 @@
-package dsl_test
+package gost_test
 
 import (
 	"testing"
 
-	"github.com/christat/dsl/src"
+	"github.com/christat/gost/queue"
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateNodeQueue(size uint) *dsl.NodeQueue {
-	queue := new(dsl.NodeQueue)
+func generateNodeQueue(size uint) *gost.NodeQueue {
+	queue := new(gost.NodeQueue)
 	for i := 0; uint(i) < size; i++ {
 		queue.Enqueue(newVector(i))
 	}
@@ -69,14 +69,14 @@ The following methods are meant to put this implementation to the test against t
 */
 
 // benchmark helper function to add num items to the queue.
-func fillNodeQueue(queue *dsl.NodeQueue, num int) {
+func fillNodeQueue(queue *gost.NodeQueue, num int) {
 	for i := 0; i < num; i++ {
 		queue.Enqueue(newVector(i))
 	}
 }
 
 // benchmark helper function to remove num items from the queue.
-func emptyNodeQueue(queue *dsl.NodeQueue, num int) {
+func emptyNodeQueue(queue *gost.NodeQueue, num int) {
 	for i := 0; i < num; i++ {
 		queue.Dequeue()
 	}
@@ -84,7 +84,7 @@ func emptyNodeQueue(queue *dsl.NodeQueue, num int) {
 
 func benchmarkNodeQueueBasicTest(len int, b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		queue := new(dsl.NodeQueue)
+		queue := new(gost.NodeQueue)
 		fillNodeQueue(queue, len)
 		emptyNodeQueue(queue, len)
 	}

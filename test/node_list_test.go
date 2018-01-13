@@ -1,13 +1,13 @@
-package dsl_test
+package gost_test
 
 import (
 	"testing"
 
-	"github.com/christat/dsl/src"
+	"github.com/christat/gost/list"
 )
 
-func generateList(size int) *dsl.NodeList {
-	list := new(dsl.NodeList)
+func generateList(size int) *gost.NodeList {
+	list := new(gost.NodeList)
 	for i := 0; i < size; i++ {
 		list.Append(newVector(i))
 	}

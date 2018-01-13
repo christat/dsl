@@ -1,7 +1,8 @@
-package dsl
+package gost
 
 import (
 	"errors"
+	"github.com/christat/gost/list"
 )
 
 /*
@@ -17,13 +18,13 @@ allows:
 Note that the implementation is NOT thread-safe.
 */
 type NodeStack struct {
-	Head *Node
+	Head *gost.Node
 	Size uint
 }
 
 // Push a new node containing data (interface{}) into the stack.
 func (stack *NodeStack) Push(data interface{}) {
-	head := &Node{Data: data, Next: stack.Head}
+	head := &gost.Node{Data: data, Next: stack.Head}
 	stack.Head = head
 	stack.Size++
 }

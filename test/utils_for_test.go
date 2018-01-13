@@ -1,4 +1,4 @@
-package dsl_test
+package gost_test
 
 // constants used for testing and benchmarking
 const (

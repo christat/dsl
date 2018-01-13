@@ -1,7 +1,7 @@
-// Package dsl is a (minimal) data structures library for Go.
+// Package gost is a (minimal) data structures library for Go.
 // Implements several classic data structures such as single-linked lists,
 // stacks and queues (both node and slice based versions).
-package dsl
+package gost
 
 import (
 	"errors"
