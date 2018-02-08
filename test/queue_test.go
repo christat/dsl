@@ -17,7 +17,7 @@ func generateQueue(size int) *gost.Queue {
 
 func TestQueue_Enqueue(t *testing.T) {
 	queue := generateQueue(num)
-	if len(queue.Slice) != num {
+	if queue.Size() != num {
 		t.Error("Enqueue() did not grow queue size properly")
 	}
 }
@@ -103,8 +103,8 @@ func BenchmarkQueue_GrowthDecay(b *testing.B) {
 		queue := generateQueue(bigNum)
 		for {
 			emptyQueue(queue, bigNum/2)
-			if len(queue.Slice) > 0 {
-				fillQueue(queue, len(queue.Slice)/2)
+			if queue.Size() > 0 {
+				fillQueue(queue, queue.Size()/2)
 			} else {
 				break
 			}
@@ -115,7 +115,7 @@ func BenchmarkQueue_GrowthDecay(b *testing.B) {
 func BenchmarkQueue_GrowthIncrease(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		queue := generateQueue(bigNum)
-		for len(queue.Slice) <= bigNum {
+		for queue.Size() <= bigNum {
 			emptyQueue(queue, num/4)
 			fillQueue(queue, num/2)
 		}

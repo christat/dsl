@@ -17,7 +17,7 @@ func generateStack(size int) *gost.Stack {
 
 func TestStack_Push(t *testing.T) {
 	stack := generateStack(num)
-	if len(stack.Slice) != num {
+	if stack.Size() != num {
 		t.Error("Push did not grow stack size properly")
 	}
 }
@@ -117,8 +117,8 @@ func BenchmarkStack_GrowthDecay(b *testing.B) {
 		stack := generateStack(bigNum)
 		for {
 			emptyStack(stack, bigNum/2)
-			if len(stack.Slice) > 0 {
-				fillStack(stack, len(stack.Slice)/2)
+			if stack.Size() > 0 {
+				fillStack(stack, stack.Size()/2)
 			} else {
 				break
 			}
@@ -129,7 +129,7 @@ func BenchmarkStack_GrowthDecay(b *testing.B) {
 func BenchmarkStack_GrowthIncrease(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		stack := generateStack(bigNum)
-		for len(stack.Slice) <= bigNum {
+		for stack.Size() <= bigNum {
 			emptyStack(stack, num/4)
 			fillStack(stack, num/2)
 		}
