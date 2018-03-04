@@ -26,8 +26,8 @@ func TestNodeQueue_Dequeue(t *testing.T) {
 	queue := generateNodeQueue(num)
 	// Dequeue half the contents
 	for i := 0; i < num/2; i++ {
-		val, err := queue.Dequeue()
-		if err != nil {
+		val := queue.Dequeue()
+		if val == nil {
 			t.Error("Dequeue() failed")
 		}
 		if i == num/4 {
@@ -41,20 +41,20 @@ func TestNodeQueue_Dequeue(t *testing.T) {
 	}
 	// Empty the queue
 	for i := 0; i < num/2-1; i++ {
-		_, err := queue.Dequeue()
-		if err != nil {
+		val := queue.Dequeue()
+		if val == nil {
 			t.Error("Dequeue() failed")
 		}
 	}
-	val, err := queue.Dequeue()
+	val := queue.Dequeue()
 	if queue.Size != 0 {
 		t.Errorf("Dequeue() error; queue size expected: %v, got: %v", 0, queue.Size)
 	}
 	if *(val.(*vector)) != *newVector(num - 1) {
 		t.Errorf("Dequeue() error; expected to get: %v, got: %v", newVector(num-1), val)
 	}
-	_, err = queue.Dequeue()
-	if err == nil {
+	val = queue.Dequeue()
+	if val != nil {
 		t.Error("Dequeue() error: On empty queue, no error was returned")
 	}
 }

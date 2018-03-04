@@ -1,9 +1,5 @@
 package gost
 
-import (
-	"errors"
-)
-
 /*
 Stack is a slice-backed implementation of stacks. It takes any type implementing interface{} and
 allows:
@@ -37,8 +33,8 @@ func (stack *Stack) Push(data interface{}) {
 	stack.slice = append(stack.slice, data)
 }
 
-// Pop the head node from the stack. Returns the data or an error value if failed.
-func (stack *Stack) Pop() (interface{}, error) {
+// Pop the head node from the stack. Returns the data or nil if empty.
+func (stack *Stack) Pop() interface{} {
 	if len(stack.slice) > 0 {
 		value := stack.slice[len(stack.slice)-1]
 		stack.slice = stack.slice[:len(stack.slice)-1]
@@ -46,17 +42,17 @@ func (stack *Stack) Pop() (interface{}, error) {
 		if length := len(stack.slice); length > 10 && length <= cap(stack.slice)/2 {
 			stack.resize(length)
 		}
-		return value, nil
+		return value
 	}
-	return nil, errors.New("cannot Pop() from an empty Stack")
+	return nil
 }
 
 // Peek at the content of the stack Head (nil if empty) without removing it afterwards.
-func (stack *Stack) Peek() (interface{}, error) {
+func (stack *Stack) Peek() interface{} {
 	if len(stack.slice) > 0 {
-		return stack.slice[len(stack.slice)-1], nil
+		return stack.slice[len(stack.slice)-1]
 	}
-	return nil, errors.New("cannot Peek() into an empty Stack")
+	return nil
 }
 
 // Size returns the current length of the stack's underlying slice.

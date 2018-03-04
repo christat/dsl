@@ -51,7 +51,7 @@ func (list *NodeList) reverseIndex(index int) (bool, int) {
 	return false, 0
 }
 
-// Retrieve obtains data stored at position index within the list. Returns the data or an error if failed.
+// Retrieve obtains data stored at position index within the list. Returns the data or an error if out of bounds.
 func (list *NodeList) Retrieve(index int) (interface{}, error) {
 	isReverse, value := list.reverseIndex(index)
 	if isReverse {

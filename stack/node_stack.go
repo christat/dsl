@@ -1,7 +1,6 @@
 package gost
 
 import (
-	"errors"
 	"github.com/christat/gost/list"
 )
 
@@ -29,21 +28,21 @@ func (stack *NodeStack) Push(data interface{}) {
 	stack.Size++
 }
 
-// Pop the head node from the stack. Returns the data or an error value if failed.
-func (stack *NodeStack) Pop() (interface{}, error) {
+// Pop the head node from the stack. Returns the data or nil if empty.
+func (stack *NodeStack) Pop() interface{} {
 	if stack.Size > 0 {
 		data := stack.Head.Data
 		stack.Head = stack.Head.Next
 		stack.Size--
-		return data, nil
+		return data
 	}
-	return nil, errors.New("cannot Pop() from an empty NodeStack")
+	return nil
 }
 
-// Peek at the content of the stack head ((nil, error) if empty) without removing it afterwards.
-func (stack *NodeStack) Peek() (interface{}, error) {
+// Peek at the content of the stack head (nil if empty) without removing it afterwards.
+func (stack *NodeStack) Peek() interface{} {
 	if stack.Size > 0 {
-		return stack.Head.Data, nil
+		return stack.Head.Data
 	}
-	return nil, errors.New("cannot Peek() into an empty NodeStack")
+	return nil
 }

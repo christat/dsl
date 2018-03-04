@@ -25,35 +25,35 @@ func TestStack_Push(t *testing.T) {
 func TestStack_Pop(t *testing.T) {
 	stack := gost.NewStack(10)
 	stack = generateStack(num)
-	value, err := stack.Pop()
-	if err != nil {
+	value := stack.Pop()
+	if value == nil {
 		t.Error("Pop() failed on non-empty stack")
 	}
 	if *(value.(*vector)) != *newVector(num - 1) {
 		t.Errorf("Pop() error: expected: %v, got: %v", newVector(num-1), value)
 	}
 	for i := 0; i < num-2; i++ {
-		_, _ = stack.Pop()
+		_ = stack.Pop()
 	}
-	_, err = stack.Pop()
-	if err != nil {
+	value = stack.Pop()
+	if value == nil {
 		t.Error("Pop() failed on stack of size 1")
 	}
-	_, err = stack.Pop()
-	if err == nil {
-		t.Error("Pop() did not return error on empty stack")
+	value = stack.Pop()
+	if value != nil {
+		t.Error("Pop() did not return nil on empty stack")
 	}
 }
 
 func TestStack_Peek(t *testing.T) {
 	stack := gost.NewStack(10)
-	_, err := stack.Peek()
-	if err == nil {
-		t.Error("Peek() did not return error on empty stack")
+	value := stack.Peek()
+	if value != nil {
+		t.Error("Peek() did not return nil on empty stack")
 	}
 	stack = generateStack(num)
-	value, err := stack.Peek()
-	if err != nil {
+	value = stack.Peek()
+	if value == nil {
 		t.Error("Peek() failed on non-empty stack")
 	}
 	if *(value.(*vector)) != *newVector(num - 1) {

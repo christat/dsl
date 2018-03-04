@@ -1,9 +1,5 @@
 package gost
 
-import (
-	"errors"
-)
-
 /*
 Queue is a slice-backed implementation of queues. It takes any type implementing interface{} and
 allows:
@@ -35,8 +31,8 @@ func (queue *Queue) Enqueue(data interface{}) {
 	queue.slice = append(queue.slice, data)
 }
 
-// Dequeue the head node of the queue. Returns the data or an error if failed.
-func (queue *Queue) Dequeue() (interface{}, error) {
+// Dequeue the head node of the queue. Returns the data or nil if empty.
+func (queue *Queue) Dequeue() interface{} {
 	if len(queue.slice) > 0 {
 		value := queue.slice[0]
 		queue.slice = queue.slice[1:]
@@ -44,9 +40,9 @@ func (queue *Queue) Dequeue() (interface{}, error) {
 		if length := len(queue.slice); length > 10 && length < cap(queue.slice)/2 {
 			queue.resize(length)
 		}
-		return value, nil
+		return value
 	}
-	return nil, errors.New("cannot Dequeue() from an empty Queue")
+	return nil
 }
 
 // Size returns the current length of the queue's underlying slice.

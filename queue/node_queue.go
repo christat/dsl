@@ -1,12 +1,11 @@
 package gost
 
 import (
-	"errors"
 	"github.com/christat/gost/list"
 )
 
 /*
-NodeQueue is a single-linked list backed implementation of queues. It takes any interface{} and
+NodeQueue is a single-linked contents backed implementation of queues. It takes any interface{} and
 allows:
 
 - Enqueuing: inserting an item into the last position of the queue.
@@ -31,15 +30,15 @@ func (queue *NodeQueue) Enqueue(data interface{}) {
 	queue.Size++
 }
 
-// Dequeue the head node of the queue. Returns the data or an error value if failed.
-func (queue *NodeQueue) Dequeue() (interface{}, error) {
+// Dequeue the head node of the queue. Returns the data or nil if empty.
+func (queue *NodeQueue) Dequeue() interface{} {
 	if queue.Size > 0 {
 		data := queue.Head.Data
 		next := queue.Head.Next
 		queue.Head.Next = nil
 		queue.Head = next
 		queue.Size--
-		return data, nil
+		return data
 	}
-	return nil, errors.New("cannot Dequeue() from an empty NodeQueue")
+	return nil
 }

@@ -24,8 +24,8 @@ func TestQueue_Enqueue(t *testing.T) {
 
 func TestQueue_Dequeue(t *testing.T) {
 	queue := generateQueue(num)
-	value, err := queue.Dequeue()
-	if err != nil {
+	value := queue.Dequeue()
+	if value == nil {
 		t.Error("Dequeue() failed on non-empty queue")
 	}
 	if *(value.(*vector)) != *newVector(0) {
@@ -34,16 +34,16 @@ func TestQueue_Dequeue(t *testing.T) {
 	for i := 0; i < num-2; i++ {
 		queue.Dequeue()
 	}
-	value, err = queue.Dequeue()
-	if err != nil {
+	value = queue.Dequeue()
+	if value == nil {
 		t.Error("Dequeue() failed on queue of size 1")
 	}
 	if *(value.(*vector)) != *newVector(num - 1) {
 		t.Errorf("Dequeue() error: expected %v, got %v", value, newVector(num-1))
 	}
-	_, err = queue.Dequeue()
-	if err == nil {
-		t.Error("Dequeue() did not return error on empty queue")
+	value = queue.Dequeue()
+	if value != nil {
+		t.Error("Dequeue() did not return nil on empty queue")
 	}
 }
 

@@ -27,18 +27,18 @@ func TestNodeStack_Push(t *testing.T) {
 
 func TestNodeStack_Pop(t *testing.T) {
 	stack := new(gost.NodeStack)
-	_, err := stack.Pop()
-	if err == nil {
-		t.Error("Pop() did not return error on empty stack")
+	value := stack.Pop()
+	if value != nil {
+		t.Error("Pop() did not return nil on empty stack")
 	}
 	elem := newVector(0)
 	stack.Push(elem)
-	val, err := stack.Pop()
-	if err != nil {
+	value = stack.Pop()
+	if value == nil {
 		t.Error("Pop() failed")
 	}
-	if *(val.(*vector)) != *elem {
-		t.Errorf("Pop() error: expected %v, got %v", elem, val)
+	if *(value.(*vector)) != *elem {
+		t.Errorf("Pop() error: expected %v, got %v", elem, value)
 	}
 	stack.Push(elem)
 	stack.Push(elem)
@@ -51,18 +51,18 @@ func TestNodeStack_Pop(t *testing.T) {
 
 func TestNodeStack_Peek(t *testing.T) {
 	stack := new(gost.NodeStack)
-	_, err := stack.Peek()
-	if err == nil {
-		t.Error("Peek() did not return error on empty stack")
+	value := stack.Peek()
+	if value != nil {
+		t.Error("Peek() did not return nil on empty stack")
 	}
 	elem := newVector(0)
 	stack.Push(elem)
-	val, err := stack.Peek()
-	if err != nil {
+	value = stack.Peek()
+	if value == nil {
 		t.Error("Peek() failed")
 	}
-	if *(val.(*vector)) != *elem {
-		t.Errorf("Peek() error: expected %v, got %v", elem, val)
+	if *(value.(*vector)) != *elem {
+		t.Errorf("Peek() error: expected %v, got %v", elem, value)
 	}
 }
 
