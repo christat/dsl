@@ -28,12 +28,12 @@ func (stack *Stack) resize(cap int) {
 	stack.slice = resize
 }
 
-// Push a new node containing data of type interface{} into the stack.
+// Enqueue a new node containing data of type interface{} into the stack.
 func (stack *Stack) Push(data interface{}) {
 	stack.slice = append(stack.slice, data)
 }
 
-// Pop the head node from the stack. Returns the data or nil if empty.
+// Dequeue the head node from the stack. Returns the data or nil if empty.
 func (stack *Stack) Pop() interface{} {
 	if len(stack.slice) > 0 {
 		value := stack.slice[len(stack.slice)-1]
@@ -55,7 +55,7 @@ func (stack *Stack) Peek() interface{} {
 	return nil
 }
 
-// Size returns the current length of the stack's underlying slice.
+// Size returns the length of the stack's underlying slice.
 func (stack *Stack) Size() int {
 	return len(stack.slice)
 }

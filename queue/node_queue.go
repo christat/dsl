@@ -14,31 +14,40 @@ allows:
 
 Note that the implementation is NOT thread-safe.
 */
-type NodeQueue gost.NodeList
+type NodeQueue struct {
+	head *gost.Node
+	tail *gost.Node
+	size int
+}
 
 // Enqueue a new Node containing data (interface{}) to the tail of the queue.
 func (queue *NodeQueue) Enqueue(data interface{}) {
 	node := &gost.Node{Data: data, Next: nil}
-	if queue.Size > 1 {
-		queue.Tail.Next = node
-	} else if queue.Size == 0 {
-		queue.Head = node
+	if queue.size > 1 {
+		queue.tail.Next = node
+	} else if queue.size == 0 {
+		queue.head = node
 	} else {
-		queue.Head.Next = node
+		queue.head.Next = node
 	}
-	queue.Tail = node
-	queue.Size++
+	queue.tail = node
+	queue.size++
 }
 
 // Dequeue the head node of the queue. Returns the data or nil if empty.
 func (queue *NodeQueue) Dequeue() interface{} {
-	if queue.Size > 0 {
-		data := queue.Head.Data
-		next := queue.Head.Next
-		queue.Head.Next = nil
-		queue.Head = next
-		queue.Size--
+	if queue.size > 0 {
+		data := queue.head.Data
+		next := queue.head.Next
+		queue.head.Next = nil
+		queue.head = next
+		queue.size--
 		return data
 	}
 	return nil
+}
+
+// Size returns the length of the NodeQueue.
+func (queue *NodeQueue) Size() int {
+	return queue.size
 }

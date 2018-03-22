@@ -20,8 +20,8 @@ func TestNodeStack_Push(t *testing.T) {
 	elem := newVector(0)
 	stack.Push(elem)
 	stack.Push(elem)
-	if stack.Size != 2 {
-		t.Error("Push() on stack failed, change undetected")
+	if stack.Size() != 2 {
+		t.Error("Enqueue() on stack failed, change undetected")
 	}
 }
 
@@ -29,22 +29,22 @@ func TestNodeStack_Pop(t *testing.T) {
 	stack := new(gost.NodeStack)
 	value := stack.Pop()
 	if value != nil {
-		t.Error("Pop() did not return nil on empty stack")
+		t.Error("Dequeue() did not return nil on empty stack")
 	}
 	elem := newVector(0)
 	stack.Push(elem)
 	value = stack.Pop()
 	if value == nil {
-		t.Error("Pop() failed")
+		t.Error("Dequeue() failed")
 	}
 	if *(value.(*vector)) != *elem {
-		t.Errorf("Pop() error: expected %v, got %v", elem, value)
+		t.Errorf("Dequeue() error: expected %v, got %v", elem, value)
 	}
 	stack.Push(elem)
 	stack.Push(elem)
 	stack.Pop()
 	stack.Push(elem)
-	if stack.Size != 2 {
+	if stack.Size() != 2 {
 		t.Error("Stack size not updated properly")
 	}
 }
@@ -122,8 +122,8 @@ func BenchmarkNodeStack_GrowthDecay(b *testing.B) {
 		stack := generateNodeStack(bigNum)
 		for {
 			emptyNodeStack(stack, bigNum/2)
-			if stack.Size > 0 {
-				fillNodeStack(stack, int(stack.Size/2))
+			if stack.Size() > 0 {
+				fillNodeStack(stack, int(stack.Size()/2))
 			} else {
 				break
 			}
@@ -134,7 +134,7 @@ func BenchmarkNodeStack_GrowthDecay(b *testing.B) {
 func BenchmarkNodeStack_GrowthIncrease(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		stack := generateNodeStack(bigNum)
-		for stack.Size <= bigNum {
+		for stack.Size() <= bigNum {
 			emptyNodeStack(stack, num/4)
 			fillNodeStack(stack, num/2)
 		}

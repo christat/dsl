@@ -16,45 +16,45 @@ func generateList(size int) *gost.NodeList {
 
 func TestNodeList_Append(t *testing.T) {
 	list := generateList(num)
-	if list.Size != num {
-		t.Errorf("Append() size update failed; expected: %v, got: %v", num, list.Size)
+	if list.Size() != num {
+		t.Errorf("Append() size update failed; expected: %v, got: %v", num, list.Size())
 	}
 }
 
 func TestNodeList_Retrieve(t *testing.T) {
 	list := generateList(num)
-	_, err := list.Retrieve(int(list.Size))
+	_, err := list.Retrieve(int(list.Size()))
 	if err == nil {
 		t.Error("Retrieve() did not return error on exceeding size index")
 	}
-	_, err = list.Retrieve(int(list.Size) - 1)
+	_, err = list.Retrieve(int(list.Size()) - 1)
 	if err != nil {
 		t.Error("Retrieve() failed retrieving last item")
 	}
-	value, err := list.Retrieve(int(list.Size) / 2)
+	value, err := list.Retrieve(int(list.Size()) / 2)
 	if err != nil {
 		t.Error("Retrieve() failed unexpectedly")
 	}
-	if *(value.(*vector)) != *newVector(int(list.Size) / 2) {
-		t.Errorf("Retrieve() error; expected to get: %v, got: %v", newVector(int(list.Size)/2), value)
+	if *(value.(*vector)) != *newVector(int(list.Size()) / 2) {
+		t.Errorf("Retrieve() error; expected to get: %v, got: %v", newVector(int(list.Size())/2), value)
 	}
 }
 
 func TestNodeList_Add(t *testing.T) {
 	list := generateList(num)
-	err := list.Add(int(list.Size)+1, newVector(num))
+	err := list.Add(int(list.Size())+1, newVector(num))
 	if err == nil {
 		t.Error("Add() did not return error on exceeding size index")
 	}
-	list.Add(int(list.Size), newVector(int(list.Size)+5))
-	value, err := list.Retrieve(int(list.Size) - 1)
-	if *(value.(*vector)) != *newVector(int(list.Size) + 4) {
-		t.Errorf("Add() error; expected to retrieve last element: %v, got: %v", newVector(int(list.Size)+4), value)
+	list.Add(int(list.Size()), newVector(int(list.Size())+5))
+	value, err := list.Retrieve(int(list.Size()) - 1)
+	if *(value.(*vector)) != *newVector(int(list.Size()) + 4) {
+		t.Errorf("Add() error; expected to retrieve last element: %v, got: %v", newVector(int(list.Size())+4), value)
 	}
-	err = list.Add(int(list.Size)/2, newVector(int(list.Size)/2+5))
-	value, err = list.Retrieve(int(list.Size)/2 - 1)
-	if *(value.(*vector)) != *newVector(int(list.Size)/2 + 4) {
-		t.Errorf("Add() error; expected to retrieve intermediate element: %v, got: %v", newVector(int(list.Size)/2+4), value)
+	err = list.Add(int(list.Size())/2, newVector(int(list.Size())/2+5))
+	value, err = list.Retrieve(int(list.Size())/2 - 1)
+	if *(value.(*vector)) != *newVector(int(list.Size())/2 + 4) {
+		t.Errorf("Add() error; expected to retrieve intermediate element: %v, got: %v", newVector(int(list.Size())/2+4), value)
 
 	}
 	list.Add(0, newVector(0))

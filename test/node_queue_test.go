@@ -17,8 +17,8 @@ func generateNodeQueue(size uint) *gost.NodeQueue {
 
 func TestNodeQueue_Enqueue(t *testing.T) {
 	queue := generateNodeQueue(num)
-	if queue.Size != num {
-		t.Errorf("Enqueue() error; queue size expected: %v, got: %v", num, queue.Size)
+	if queue.Size() != num {
+		t.Errorf("Enqueue() error; queue size expected: %v, got: %v", num, queue.Size())
 	}
 }
 
@@ -36,8 +36,8 @@ func TestNodeQueue_Dequeue(t *testing.T) {
 			}
 		}
 	}
-	if queue.Size != num/2 {
-		t.Errorf("Enqueue() error; queue size expected: %v, got: %v", num/2, queue.Size)
+	if queue.Size() != num/2 {
+		t.Errorf("Enqueue() error; queue size expected: %v, got: %v", num/2, queue.Size())
 	}
 	// Empty the queue
 	for i := 0; i < num/2-1; i++ {
@@ -47,8 +47,8 @@ func TestNodeQueue_Dequeue(t *testing.T) {
 		}
 	}
 	val := queue.Dequeue()
-	if queue.Size != 0 {
-		t.Errorf("Dequeue() error; queue size expected: %v, got: %v", 0, queue.Size)
+	if queue.Size() != 0 {
+		t.Errorf("Dequeue() error; queue size expected: %v, got: %v", 0, queue.Size())
 	}
 	if *(val.(*vector)) != *newVector(num - 1) {
 		t.Errorf("Dequeue() error; expected to get: %v, got: %v", newVector(num-1), val)
@@ -115,8 +115,8 @@ func BenchmarkNodeQueue_GrowthDecay(b *testing.B) {
 		queue := generateNodeQueue(bigNum)
 		for {
 			emptyNodeQueue(queue, bigNum/2)
-			if queue.Size > 0 {
-				fillNodeQueue(queue, int(queue.Size/2))
+			if queue.Size() > 0 {
+				fillNodeQueue(queue, int(queue.Size()/2))
 			} else {
 				break
 			}
@@ -127,7 +127,7 @@ func BenchmarkNodeQueue_GrowthDecay(b *testing.B) {
 func BenchmarkNodeQueue_GrowthIncrease(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		queue := generateNodeQueue(bigNum)
-		for queue.Size <= bigNum {
+		for queue.Size() <= bigNum {
 			emptyNodeQueue(queue, num/4)
 			fillNodeQueue(queue, num/2)
 		}

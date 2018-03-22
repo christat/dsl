@@ -45,7 +45,7 @@ func (queue *Queue) Dequeue() interface{} {
 	return nil
 }
 
-// Size returns the current length of the queue's underlying slice.
+// Size returns the length of the queue's underlying slice.
 func (queue *Queue) Size() int {
 	return len(queue.slice)
 }

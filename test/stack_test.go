@@ -18,7 +18,7 @@ func generateStack(size int) *gost.Stack {
 func TestStack_Push(t *testing.T) {
 	stack := generateStack(num)
 	if stack.Size() != num {
-		t.Error("Push did not grow stack size properly")
+		t.Error("Enqueue did not grow stack size properly")
 	}
 }
 
@@ -27,21 +27,21 @@ func TestStack_Pop(t *testing.T) {
 	stack = generateStack(num)
 	value := stack.Pop()
 	if value == nil {
-		t.Error("Pop() failed on non-empty stack")
+		t.Error("Dequeue() failed on non-empty stack")
 	}
 	if *(value.(*vector)) != *newVector(num - 1) {
-		t.Errorf("Pop() error: expected: %v, got: %v", newVector(num-1), value)
+		t.Errorf("Dequeue() error: expected: %v, got: %v", newVector(num-1), value)
 	}
 	for i := 0; i < num-2; i++ {
 		_ = stack.Pop()
 	}
 	value = stack.Pop()
 	if value == nil {
-		t.Error("Pop() failed on stack of size 1")
+		t.Error("Dequeue() failed on stack of size 1")
 	}
 	value = stack.Pop()
 	if value != nil {
-		t.Error("Pop() did not return nil on empty stack")
+		t.Error("Dequeue() did not return nil on empty stack")
 	}
 }
 

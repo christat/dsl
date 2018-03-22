@@ -31,7 +31,7 @@ Note that the implementation is NOT thread-safe.
 type NodeList struct {
 	Head *Node
 	Tail *Node
-	Size uint
+	size int
 }
 
 // Internal function used to iterate through the list and retrieve a Node at the index value. Doesn't check for errors.
@@ -46,7 +46,7 @@ func (list *NodeList) getNode(index int) (node *Node) {
 // Internal function used to allow reverse search by subtracting the size of the list with the negative offset.
 func (list *NodeList) reverseIndex(index int) (bool, int) {
 	if index < 0 {
-		return true, int(list.Size) - int(math.Abs(float64(index)))
+		return true, int(list.size) - int(math.Abs(float64(index)))
 	}
 	return false, 0
 }
@@ -57,7 +57,7 @@ func (list *NodeList) Retrieve(index int) (interface{}, error) {
 	if isReverse {
 		index = value
 	}
-	if index >= int(list.Size) || index < 0 {
+	if index >= int(list.size) || index < 0 {
 		return nil, errors.New("cannot Retrieve() index out of bounds")
 	}
 	node := list.getNode(index)
@@ -67,15 +67,15 @@ func (list *NodeList) Retrieve(index int) (interface{}, error) {
 // Append the data passed as parameter to the end of the list.
 func (list *NodeList) Append(data interface{}) {
 	node := &Node{Data: data, Next: nil}
-	if list.Size > 1 {
+	if list.size > 1 {
 		list.Tail.Next = node
-	} else if list.Size == 0 {
+	} else if list.size == 0 {
 		list.Head = node
 	} else {
 		list.Head.Next = node
 	}
 	list.Tail = node
-	list.Size++
+	list.size++
 }
 
 // Add the data passed as parameter at the position designed by index. Returns an error if out of bounds.
@@ -84,10 +84,10 @@ func (list *NodeList) Add(index int, data interface{}) error {
 	if isReverse {
 		index = value
 	}
-	if index > int(list.Size) || index < 0 {
+	if index > int(list.size) || index < 0 {
 		return errors.New("cannot Add() index out of bounds")
 	}
-	if index == int(list.Size) {
+	if index == int(list.size) {
 		list.Append(data)
 		return nil
 	}
@@ -101,7 +101,7 @@ func (list *NodeList) Add(index int, data interface{}) error {
 		prev.Next = node
 		node.Next = next
 	}
-	list.Size++
+	list.size++
 	return nil
 }
 
@@ -111,13 +111,13 @@ func (list *NodeList) Remove(index int) (interface{}, error) {
 	if isReverse {
 		index = value
 	}
-	if index >= int(list.Size) || index < 0 {
+	if index >= int(list.size) || index < 0 {
 		return nil, errors.New("cannot Remove() index out of bounds")
 	}
 	var data interface{}
-	if index == int(list.Size)-1 {
+	if index == int(list.size)-1 {
 		data = list.Tail.Data
-		prev := list.getNode(int(list.Size) - 2)
+		prev := list.getNode(int(list.size) - 2)
 		prev.Next = nil
 		list.Tail = prev
 	} else if index > 0 {
@@ -132,6 +132,11 @@ func (list *NodeList) Remove(index int) (interface{}, error) {
 		list.Head.Next = nil
 		list.Head = next
 	}
-	list.Size--
+	list.size--
 	return data, nil
+}
+
+// Size returns the length of the NodeList.
+func (list *NodeList) Size() int {
+	return list.size
 }

@@ -17,23 +17,23 @@ allows:
 Note that the implementation is NOT thread-safe.
 */
 type NodeStack struct {
-	Head *gost.Node
-	Size uint
+	head *gost.Node
+	size int
 }
 
-// Push a new node containing data (interface{}) into the stack.
+// Enqueue a new node containing data (interface{}) into the stack.
 func (stack *NodeStack) Push(data interface{}) {
-	head := &gost.Node{Data: data, Next: stack.Head}
-	stack.Head = head
-	stack.Size++
+	head := &gost.Node{Data: data, Next: stack.head}
+	stack.head = head
+	stack.size++
 }
 
-// Pop the head node from the stack. Returns the data or nil if empty.
+// Dequeue the head node from the stack. Returns the data or nil if empty.
 func (stack *NodeStack) Pop() interface{} {
-	if stack.Size > 0 {
-		data := stack.Head.Data
-		stack.Head = stack.Head.Next
-		stack.Size--
+	if stack.size > 0 {
+		data := stack.head.Data
+		stack.head = stack.head.Next
+		stack.size--
 		return data
 	}
 	return nil
@@ -41,8 +41,13 @@ func (stack *NodeStack) Pop() interface{} {
 
 // Peek at the content of the stack head (nil if empty) without removing it afterwards.
 func (stack *NodeStack) Peek() interface{} {
-	if stack.Size > 0 {
-		return stack.Head.Data
+	if stack.size > 0 {
+		return stack.head.Data
 	}
 	return nil
+}
+
+// Size returns the depth of the current NodeStack.
+func (stack *NodeStack) Size() int {
+	return stack.size
 }

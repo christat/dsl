@@ -9,67 +9,67 @@ import (
 // test helper function; initializes and adds size elements to the structure.
 func generateEqualQueue(size int) (queue gost.PriorityQueue) {
 	for i := 0; i < size; i++ {
-		queue.Push(newVector(i), 1)
+		queue.Enqueue(newVector(i), 1)
 	}
 	return
 }
 
 func TestPriorityQueue_Len(t *testing.T) {
 	queue := gost.PriorityQueue{}
-	if queue.Len() != 0 {
-		t.Error("Len() failed to return empty queue length")
+	if queue.Size() != 0 {
+		t.Error("len() failed to return empty queue length")
 	}
 
 	queue = generateEqualQueue(10)
-	if queue.Len() != 10 {
-		t.Errorf("Len() length: %v, expected: %v", queue.Len(), 10)
+	if queue.Size() != 10 {
+		t.Errorf("len() length: %v, expected: %v", queue.Size(), 10)
 	}
 }
 
 func TestPriorityQueue_Push(t *testing.T) {
 	queue := gost.NewPriorityQueue()
-	queue.Push("last", 0)
-	queue.Push("middle", 1)
-	queue.Push("first", 2)
+	queue.Enqueue("last", 0)
+	queue.Enqueue("middle", 1)
+	queue.Enqueue("first", 2)
 
-	if queue.Len() != 3 {
-		t.Error("Push() failed to add items")
+	if queue.Size() != 3 {
+		t.Error("Enqueue() failed to add items")
 	}
 }
 
 func TestPriorityQueue_Pop(t *testing.T) { //TODO
 	pq := gost.NewPriorityQueue()
-	pq.Push("a", 0)
-	pq.Push("b", 5)
-	pq.Push("c", 10)
-	pq.Push("d", 5)
+	pq.Enqueue("a", 0)
+	pq.Enqueue("b", 5)
+	pq.Enqueue("c", 10)
+	pq.Enqueue("d", 5)
 
-	value := pq.Pop().(string)
+	value := pq.Dequeue().(string)
 	if value != "c" {
-		t.Errorf("Pop() failed: returned: %v, expected: %v", value, "c")
+		t.Errorf("Dequeue() failed: returned: %v, expected: %v", value, "c")
 	}
 
-	value = pq.Pop().(string)
+	value = pq.Dequeue().(string)
 	if value != "b" {
-		t.Errorf("Pop() failed: returned: %v, expected: %v", value, "b")
+		t.Errorf("Dequeue() failed: returned: %v, expected: %v", value, "b")
 	}
 
-	value = pq.Pop().(string)
+	value = pq.Dequeue().(string)
 	if value != "d" {
-		t.Errorf("Pop() failed: returned: %v, expected: %v", value, "d")
+		t.Errorf("Dequeue() failed: returned: %v, expected: %v", value, "d")
 	}
 
-	value = pq.Pop().(string)
+	value = pq.Dequeue().(string)
 	if value != "a" {
-		t.Errorf("Pop() failed: returned: %v, expected: %v", value, "a")
+		t.Errorf("Dequeue() failed: returned: %v, expected: %v", value, "a")
 	}
 
-	if pq.Len() != 0 {
-		t.Error("Pop() failed: PriorityQueue should be empty")
+	if pq.Size() != 0 {
+		t.Error("Dequeue() failed: PriorityQueue should be empty")
 	}
 
-	null := pq.Pop()
+	null := pq.Dequeue()
 	if null != nil {
-		t.Error("Pop() failed: PriorityQueue returned non-nil value when empty")
+		t.Error("Dequeue() failed: PriorityQueue returned non-nil value when empty")
 	}
 }
