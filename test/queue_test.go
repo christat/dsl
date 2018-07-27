@@ -7,7 +7,7 @@ import (
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateQueue(size int) *gost.Queue {
+func generateQueue(size int) *gost.SliceQueue {
 	queue := gost.NewQueue(10)
 	for i := 0; i < size; i++ {
 		queue.Enqueue(newVector(i))
@@ -48,7 +48,7 @@ func TestQueue_Dequeue(t *testing.T) {
 }
 
 /*
-Queue Benchmark:
+SliceQueue Benchmark:
 The following methods are meant to put this implementation to the test against the linked list backed version.
 
 	- Basic tests fill and subsequently empty the structure with N vector elements (check testUtils.go).
@@ -57,14 +57,14 @@ The following methods are meant to put this implementation to the test against t
 */
 
 // benchmark helper function to add num items to the queue.
-func fillQueue(queue *gost.Queue, num int) {
+func fillQueue(queue *gost.SliceQueue, num int) {
 	for i := 0; i < num; i++ {
 		queue.Enqueue(newVector(i))
 	}
 }
 
 // benchmark helper function to remove num items from the queue.
-func emptyQueue(queue *gost.Queue, num int) {
+func emptyQueue(queue *gost.SliceQueue, num int) {
 	for i := 0; i < num; i++ {
 		queue.Dequeue()
 	}

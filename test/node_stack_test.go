@@ -45,7 +45,7 @@ func TestNodeStack_Pop(t *testing.T) {
 	stack.Pop()
 	stack.Push(elem)
 	if stack.Size() != 2 {
-		t.Error("Stack size not updated properly")
+		t.Error("SliceStack size not updated properly")
 	}
 }
 

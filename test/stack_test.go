@@ -7,7 +7,7 @@ import (
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateStack(size int) *gost.Stack {
+func generateStack(size int) *gost.SliceStack {
 	stack := gost.NewStack(10)
 	for i := 0; i < size; i++ {
 		stack.Push(newVector(i))
@@ -62,7 +62,7 @@ func TestStack_Peek(t *testing.T) {
 }
 
 /*
-Stack Benchmark:
+SliceStack Benchmark:
 The following methods are meant to put this implementation to the test against the linked list backed version.
 
 	- Basic tests fill and subsequently empty the structure with N vector elements (check testUtils.go).
@@ -71,14 +71,14 @@ The following methods are meant to put this implementation to the test against t
 */
 
 // benchmark helper function to add num items to the stack.
-func fillStack(stack *gost.Stack, num int) {
+func fillStack(stack *gost.SliceStack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Push(newVector(i))
 	}
 }
 
 // benchmark helper function to remove num items from the stack.
-func emptyStack(stack *gost.Stack, num int) {
+func emptyStack(stack *gost.SliceStack, num int) {
 	for i := 0; i < num; i++ {
 		stack.Pop()
 	}
