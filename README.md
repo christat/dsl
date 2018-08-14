@@ -9,8 +9,6 @@ Implemented data structures:
 - Priority Queue (preserving FIFO for equal priority)
 - Min. Priority Queue (preserving FIFO for equal priority)
 
-Stacks, 
-
 **Note:** None of the implementations are thread-safe!
 
 ## Download/Installation
