@@ -1,5 +1,5 @@
-[![GoDoc](https://godoc.org/github.com/christat/dsl?status.svg)](https://godoc.org/github.com/christat/dsl)
-[![Build Status](https://travis-ci.org/christat/dsl.svg?branch=master)](https://travis-ci.org/christat/dsl)
+[![GoDoc](https://godoc.org/github.com/christat/gost?status.svg)](https://godoc.org/github.com/christat/gost)
+[![Build Status](https://travis-ci.org/christat/gost.svg?branch=master)](https://travis-ci.org/christat/gost)
 # Gost - Go (data) structures
 
 A minimal set of data structures for Go.
