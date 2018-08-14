@@ -2,13 +2,14 @@
 [![Build Status](https://travis-ci.org/christat/gost.svg?branch=master)](https://travis-ci.org/christat/gost)
 # Gost - Go (data) structures
 
-A minimal set of data structures for Go.
-
 Implemented data structures:
 - List (singly-linked)
 - Stacks (slice and list implementations)
 - Queues (slice and list implementations)
 - Priority Queue (preserving FIFO for equal priority)
+- Min. Priority Queue (preserving FIFO for equal priority)
+
+Stacks, 
 
 **Note:** None of the implementations are thread-safe!
 
