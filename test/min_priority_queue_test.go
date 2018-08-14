@@ -7,15 +7,15 @@ import (
 )
 
 // test helper function; initializes and adds size elements to the structure.
-func generateEqualInverseQueue(size int) (queue gost.InversePriorityQueue) {
+func generateEqualInverseQueue(size int) (queue gost.MinPriorityQueue) {
 	for i := 0; i < size; i++ {
 		queue.Enqueue(newVector(i), 1)
 	}
 	return
 }
 
-func TestInversePriorityQueue_Len(t *testing.T) {
-	queue := gost.InversePriorityQueue{}
+func TestMinPriorityQueue_Len(t *testing.T) {
+	queue := gost.MinPriorityQueue{}
 	if queue.Size() != 0 {
 		t.Error("len() failed to return empty queue length")
 	}
@@ -26,8 +26,8 @@ func TestInversePriorityQueue_Len(t *testing.T) {
 	}
 }
 
-func TestInversePriorityQueue_Push(t *testing.T) {
-	queue := gost.NewInversePriorityQueue()
+func TestMinPriorityQueue_Push(t *testing.T) {
+	queue := gost.NewMinPriorityQueue()
 	queue.Enqueue("last", 0)
 	queue.Enqueue("middle", 1)
 	queue.Enqueue("first", 2)
@@ -37,8 +37,8 @@ func TestInversePriorityQueue_Push(t *testing.T) {
 	}
 }
 
-func TestInversePriorityQueue_Pop(t *testing.T) {
-	pq := gost.NewInversePriorityQueue()
+func TestMinPriorityQueue_Pop(t *testing.T) {
+	pq := gost.NewMinPriorityQueue()
 	pq.Enqueue("a", 0)
 	pq.Enqueue("b", 5)
 	pq.Enqueue("c", 10)
@@ -65,11 +65,11 @@ func TestInversePriorityQueue_Pop(t *testing.T) {
 	}
 
 	if pq.Size() != 0 {
-		t.Error("Dequeue() failed: InversePriorityQueue should be empty")
+		t.Error("Dequeue() failed: MinPriorityQueue should be empty")
 	}
 
 	null := pq.Dequeue()
 	if null != nil {
-		t.Error("Dequeue() failed: InversePriorityQueue returned non-nil value when empty")
+		t.Error("Dequeue() failed: MinPriorityQueue returned non-nil value when empty")
 	}
 }
