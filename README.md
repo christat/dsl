@@ -16,7 +16,7 @@ Implemented data structures:
 In your Go project's root directory, open a terminal and paste the following:
 
 ```
-go get github.com/christat/dsl
+go get github.com/christat/gost
 ```
 
 ## Contributions
